@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html ng-app="store" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Level 2: AngularJS - Version 3: Filters and New Directive</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+</head>
+
+
+<body class="container" ng-controller="StoreController as store">
+<img src="angular.png" alt="">
+
+
+<div class="product row" ng-repeat="product in store.products" ng-hide="product.soldOut">
+    <h1>
+        {{product.name}}
+        <!-- Let's add filter: currency - to dispaly w/ $ sign and decimals -->
+        <em class="pull-right">{{product.price | currency }}</em>
+        <!-- Here is how to display images - via Directive -->
+        <img ng-src="{{product.images[0].full}}"/>
+        <img ng-src="{{product.images[1].full}}"/>
+    </h1>
+    <p>{{product.description}} </p>
+    <button ng-show="product.canPurchase"> Add to Cart </button>
+</div>
+
+<br>
+
+<!-- here are more examples of filters
+{{ data | filter:options }} -->
+
+<!-- date -->
+{{'747329834975' | date:'MM/dd/yyyy @ h:mma'}}
+<br>
+<!-- uppercase & lowercase -->
+{{'octagon gem' | uppercase }} <br>
+{{'STOP YELLING!' | lowercase }} <br>
+
+<!-- limitTo -->
+{{'My awesome journey' | limitTo:8 }} <br>
+
+<!-- super useful when we want to limit the # of items in array to display -->
+<li ng-repeat="product in store.products | limitTo:3">gem</li> <br>
+
+<!-- orderBy -->
+<!-- Descending -->
+<li ng-repeat="product in store.products | orderBy:'-price'">gem</li>
+
+<!-- For Ascending, just remove '-' -->
+
+
+
+
+
+
+<script>
+(function() {
+    var app = angular.module('store', [ ]);
+
+    app.controller('StoreController', function() {
+        this.products = gems;
+    });
+
+    var gems = [
+      {
+        name: "Diamond",
+        price: 3.48,
+        description: "Some gems have hidden quality beyond their luster, beyond their shine...",
+        images: [
+            {
+                full: 'http://www.tiffany.com/shared/images/engagement/flawless-diamond.png',
+                thumb: 'diamond-01-thumg.jpg'
+            },
+            {
+                full: 'http://images.huffingtonpost.com/2016-09-22-1474506901-4241660-Diamond.jpeg',
+                thumb: 'diamond-02-thumg.jpg'
+            }
+        ],
+        canPurchase: true,
+        soldOut: false
+      },
+      {
+        name: "Ruby",
+        price: 5.00,
+        description: "It's an amazing gem!",
+        images: [
+            {
+                full: 'http://www.tiffany.com/shared/images/engagement/flawless-diamond.png',
+                thumb: 'diamond-01-thumg.jpg'
+            },
+            {
+                full: 'http://images.huffingtonpost.com/2016-09-22-1474506901-4241660-Diamond.jpeg',
+                thumb: 'diamond-02-thumg.jpg'
+            }
+        ],
+        canPurchase: false,
+        soldOut: true
+      },
+      {
+        name: "Emerald",
+        price: 5,
+        description: "Beautiful green color!",
+        images: [
+            {
+                full: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Gachala_Emerald_3526711557_849c4c7367.jpg/250px-Gachala_Emerald_3526711557_849c4c7367.jpg',
+                thumb: 'diamond-01-thumg.jpg'
+            },
+            {
+                full: 'http://www.jewelsforme.com/images/articles/venus-emerald-history-gemstones.jpg',
+                thumb: 'diamond-02-thumg.jpg'
+            }
+        ],
+        canPurchase: true,
+        soldOut: false
+      }
+    ];
+
+})();
+
+
+
+
+
+
+</script>
+</body>
+</html>
