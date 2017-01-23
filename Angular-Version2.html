@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!-- We run this module (store) when document loads -->
+<!-- It will treat the html here as part of Angular -->
+<html ng-app="store" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS - Version 2 - more dynamic</title>
+    <!-- Our previous version wasn't very dynamic, we just repeated our HTML divs -->
+    <!-- <link rel="stylesheet" type="text/css" href="bootstrap.min.css"> -->
+
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+</head>
+
+
+<body class="container" ng-controller="StoreController as store">
+<!-- that's how we bind the behavior -->
+<!-- now the whole body is the scope of the Controller -->
+<!-- ng-controller is a Directive
+     StoreController is Controller name
+     as - keyword
+     store is Alias to use inside Expressions-->
+
+
+<img src="angular.png" alt="">
+
+
+<!-- Let's load our data here: -->
+<div class="product row" ng-repeat="product in store.products" ng-hide="product.soldOut">
+<!-- Expressions allow you to insert dynamic values into HTML -->
+    <h1>
+        {{product.name}}
+        <em class="pull-right">${{product.price}}</em>
+    </h1>
+    <p>{{product.description}} </p>
+    <!-- This will only show if value of the expression is true -->
+    <button ng-show="product.canPurchase"> Add to Cart </button>
+</div>
+
+
+
+<script>
+// Controllers
+// where we define our app's behavior by defining funtions and values
+// wrapping your JS in a closure is a good habit!
+(function() {
+    var app = angular.module('store', [ ]);
+    // store - is app name
+    // [ ] - dependencies, other libraries we might need
+
+    // then we add controller
+    // controller is attached (inside) our app, capitalized
+    app.controller('StoreController', function() {
+        this.products = gems;
+    });
+
+    var gems = [
+      {
+        name: "Diamond",
+        price: 3.48,
+        description: "Some gems have hidden quality beyond their luster, beyond their shine...",
+        canPurchase: true,
+        soldOut: false
+      },
+      {
+        name: "Ruby",
+        price: 5.00,
+        description: "It's an amazing gem!",
+        canPurchase: false,
+        soldOut: true
+      },
+      {
+        name: "Emerald",
+        price: 5.00,
+        description: "Beautiful green color!",
+        canPurchase: true,
+        soldOut: false
+      }
+    ];
+
+})();
+
+// How do we print this data inside our webpage?
+
+
+
+
+</script>
+<!-- <script type="text/javascript" src="angular.min.js"></script> -->
+</body>
+</html>
